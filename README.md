@@ -27,3 +27,21 @@ the Gemfile.lock rewrite.
 2. bundle check passes even if ruby version in Gemfile.lock doesn't
    match what's in Gemfile (not sure if this is check command's job
    but something should blow up or prevent this).
+
+----
+
+To reproduce bug:
+
+* Ensure Ruby 2.3.0p0 is installed (version doesn't matter
+  but that's what currently specified)
+* Comment the `ruby "2.3.0"` entry in Gemfile
+* Run `bundle check`
+
+EXPECTED: Some error because RUBY VERSION is still in Gemfile.lock.
+ACTUAL: No error.
+
+* Run `bundle`
+
+EXPECTED: RUBY VERSION to be removed from Gemfile.lock
+ACTUAL: Nothing happens.
+  
